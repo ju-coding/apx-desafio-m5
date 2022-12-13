@@ -13,13 +13,15 @@ export function initButtonComponent() {
             style.innerHTML = `
                 .submit{
                     width: 100%;
-                    font-size: 18px;
-                    margin: 18px 0;
+                    font-size: 40px;
+                    margin: 20px 0;
                     display: block;
-                    border: 2px solid #000000;
+                    color: white;
+                    border: 4px solid;
                     border-radius: 4px;
+                    border-color: #001997;
                     background-color: #9CBBE9;
-
+                    font-family: 'Odibee Sans', cursive;
                 }
             `;
             div.innerHTML = `

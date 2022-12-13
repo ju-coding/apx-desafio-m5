@@ -1,16 +1,15 @@
 import {initRouter} from "./router";
-import { initItemForm } from "./components/add-item-form";
-import {initItemsList} from "./components/items-list";
-
-
-
+import {initButtonComponent} from "./components/button";
+import {initTextComponent} from "./components/text";
+import {initHandsComponent} from "./components/hands";
 
 
 function main(){
     const root = document.querySelector(".root");
     
     initRouter(root);
-    initItemForm();
-    initItemsList();
+    initHandsComponent();
+    initTextComponent();
+    initButtonComponent();
 }
 main()
