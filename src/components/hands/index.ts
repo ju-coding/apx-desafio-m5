@@ -14,9 +14,9 @@ export function initHandsComponent() {
             div.className = "";
             div.innerHTML = `
             <div class="hands">
-                    <img class="tijera" src="${tijera}" alt="">
-                    <img class="piedra" src="${piedra}" alt="">
-                    <img class="papel" src="${papel}" alt="">
+                    <img class="scissor" src="${tijera}" alt="">
+                    <img class="stone" src="${piedra}" alt="">
+                    <img class="paper" src="${papel}" alt="">
             </div>
             `;
             var style = document.createElement('style');

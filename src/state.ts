@@ -1,5 +1,5 @@
-// 0 = tijera, 1 = piedra, 2 = papel.
-type Jugada = 0 | 1 | 2;
+
+type Jugada = "piedra" | "papel" | "tijera";
 type Game = [
     computerPlay:Jugada,
     myPlay:Jugada
@@ -7,42 +7,103 @@ type Game = [
 
 const state = {
     data: {
-        // list: [],
         currentGame:{
             computerPlay: "",
             myPlay: ""
         },
-        history: []
+        history: {
+            myScore: 0,
+            computerScore: 0
+        }
     },
-    setMove(move:Jugada) {
-        const currentState = this.getState();
-        currentState.currentGame.myPlay
-    },
-    pushToHistory(play:Game) {
-        const currentState = this.getState();
-        currentState.history(play)
-    },
-    whoWins(myPlay:Jugada, computerPlay:Jugada) {
 
+    getStorage() {
+        const local = JSON.parse(localStorage.getItem("data") as string);
+        if (localStorage.getItem("data")) {
+            this.data.history = local;
+        }
     },
-    // listeners: [],
     getState() {
         return this.data;
     },
-    // setState(newState) {
-    //     this.data = newState;
-    //     for (const cb of this.listeners) {
-    //         cb()
-    //     }
-    // },
-    // subscribe(callback: (any) => any) {
-    //     this.listeners.push(callback)
-    // },
-    // addItem(item) {
-    //     const cs = this.getState();
-    //     cs.list.push(item);
-    //     this.setState(cs);
-    // },
+    setState(newState) {
+        this.data = newState;
+    },
+    setMove(move:Jugada) {
+        const currentState = this.getState();
+        currentState.currentGame.myPlay = move;
+        const computerMove = () => {
+        const move = ["tijera", "piedra", "papel"];
+        return move[Math.floor(Math.random() * 3)];
+    };
+    currentState.currentGame.computerPlay = computerMove();
+    this.setHistory();
+    },
+    setHistory() {
+        const currentState = this.getState();
+        const currentWhoWins = this.whoWins();
+        const myScore = currentState.history.myScore;
+        const computerScore = currentState.history.computerScore;
+    
+        if (currentWhoWins == "victoria") {
+            this.setState({
+            ...currentState,
+                history: {
+                    myScore: myScore + 1,
+                    computerScore: computerScore,
+                },
+            });
+        }
+        if (currentWhoWins == "derrota") {
+            this.setState({
+            ...currentState,
+                history: {
+                    myScore: myScore,
+                    computerScore: computerScore + 1,
+                },
+            });
+        }
+        this.savedData();
+    },
+    
+    whoWins() {
+        const currentState = this.getState();
+        const jugada = currentState.currentGame;
+    
+        const empate = [
+            jugada.myPlay == "tijera" && jugada.computerPlay == "tijera",
+            jugada.myPlay == "piedra" && jugada.computerPlay == "piedra",
+            jugada.myPlay == "papel" && jugada.computerPlay == "papel",
+        ];
+    
+        if (empate.includes(true)) {
+            return "empate";
+        }
+    
+        const juego = [
+            jugada.myPlay == "tijera" && jugada.computerPlay == "papel",
+            jugada.myPlay == "piedra" && jugada.computerPlay == "tijera",
+            jugada.myPlay == "papel" && jugada.computerPlay == "piedra",
+        ];
+    
+        if (juego.includes(true)) {
+            return "victoria";
+        } else {
+            return "derrota";
+        }
+    },
+    
+    savedData() {
+        const currentState = this.getState().history;
+        localStorage.setItem("data", JSON.stringify(currentState));
+    },
+    
+    cleanData() {
+        localStorage.setItem(
+            "data",
+            JSON.stringify({ myScore: 0, computerScore: 0 })
+        );
+    },
 };
 
 export {state};

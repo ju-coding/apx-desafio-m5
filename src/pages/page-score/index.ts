@@ -1,16 +1,52 @@
+import { state } from "../../state";
+
+const resultImages = {
+    empate: require("url:../../img/empate.png"),
+    ganaste: require("url:../../img/ganaste.png"),
+    perdiste: require("url:../../img/perdiste.png"),
+};
+
 export function initPageScore(params) {
 
-    const ganaste = require("url:../../img/ganaste.png");
-    const perdiste = require("url:../../img/perdiste.png");
+    const resultado = state.whoWins();
+
+    const styleBackground = document.createElement("style");
+    let imagen;
+    if (resultado == "empate") {
+        imagen = resultImages.empate;
+        styleBackground.innerHTML = `
+            .container {
+                background-color: gray;
+                opacity:0.6; 
+            }`;
+    }
+    if (resultado == "victoria") {
+        imagen = resultImages.ganaste;
+        styleBackground.innerHTML = `
+            .container {
+                background-color: green;
+                opacity:0.6;  
+            }`;
+    } else if (resultado == "derrota") {
+        imagen = resultImages.perdiste;
+        styleBackground.innerHTML = `
+            .container {
+                background-color: red;
+                opacity:0.6; 
+            }`;
+    }
+
+    const currentState = state.getState();
 
     const div = document.createElement("div");
     div.className = "page";
     div.innerHTML = `
     <div class="container">
+        <img class="img" src="${imagen}">
         <div class="score">
-            <custom-text variant="title">Score</custom-text>
-            <custom-text variant="body">Vos: </custom-text>
-            <custom-text variant="body">Pc: </custom-text>
+            <custom-text variant="body">SCORE</custom-text>
+            <custom-text class="puntos" variant="body">Vos: ${currentState.history.myScore}</custom-text>
+            <custom-text class="puntos" variant="body">Pc: ${currentState.history.computerScore}</custom-text>
             
         </div>
         <custom-button class="toPlay" text="Volver a Jugar"></custom-button>
@@ -33,6 +69,9 @@ export function initPageScore(params) {
             align-items: center;
             flex-direction: column;
             justify-content: space-between;
+        }
+        .puntos{
+            text-align: right;
         }
         .score{
             border: 4px solid;
