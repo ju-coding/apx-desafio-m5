@@ -49,7 +49,7 @@ export function initRouter(container) {
         }
     }
 
-    if ( location.pathname == "/"||
+    if ( location.pathname == "/" ||
     location.host.includes("github.io")){
         goTo("/welcome")
     } else{
