@@ -10,30 +10,14 @@ export function initPageScore(params) {
 
     const resultado = state.whoWins();
 
-    const styleBackground = document.createElement("style");
     let imagen;
     if (resultado == "empate") {
         imagen = resultImages.empate;
-        styleBackground.innerHTML = `
-            .container {
-                background-color: gray;
-                opacity:0.6; 
-            }`;
     }
     if (resultado == "victoria") {
         imagen = resultImages.ganaste;
-        styleBackground.innerHTML = `
-            .container {
-                background-color: green;
-                opacity:0.6;  
-            }`;
     } else if (resultado == "derrota") {
         imagen = resultImages.perdiste;
-        styleBackground.innerHTML = `
-            .container {
-                background-color: red;
-                opacity:0.6; 
-            }`;
     }
 
     const currentState = state.getState();

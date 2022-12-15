@@ -17,7 +17,7 @@ customElements.define(
 
             style.innerHTML = `
                 .hand-stone {
-                    
+                    margin: 0 18px;
                 }
             `;
             this.shadow.appendChild(style);

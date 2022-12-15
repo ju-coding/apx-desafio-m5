@@ -20,7 +20,7 @@ export function initPagePlay(params) {
     <div class="hands-top">
         <hand-scissor class="scissor-top hand-display-none"></hand-scissor>
         <hand-stone class="stone-top hand-display-none"></hand-sto>
-        <hand-paper class="paper-top "></hand-paper>
+        <hand-paper class="paper-top hand-display-none"></hand-paper>
     </div>
     <div class= "container">
         <div class="counter-el">${counter}</div>
@@ -50,9 +50,8 @@ export function initPagePlay(params) {
         }
         .hands{
             margin: 0 auto;
-            min-width: 240px;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
         }
         .counter-el {
             margin-top: 100px;
@@ -64,7 +63,7 @@ export function initPagePlay(params) {
             display: none;
         }
         .active-hands{
-            min-height: 157px;
+        
         }
         .actived {
             display: inherit;
@@ -75,18 +74,17 @@ export function initPagePlay(params) {
             opacity: 60%;
         }
         .actived-hands-top {
-            width: 100%;
-            height: 157px;
             display: flex;
             justify-content: center;
             transform: rotate(180deg);
         }
+        .actived-hand-top {
+            display: flex;
+            transform: translateY(-30px);
+            transition: all 0.5s;
+        }
         .hand-display-none{
             display: none;
-        }
-        .hand-paper, .hand-scissor, .hand-stone {
-            display: flex;
-            justify-self: center;
         }
     `;
     
@@ -150,24 +148,29 @@ export function initPagePlay(params) {
 
         setTimeout(() => {
             const machineMove = state.getState().currentGame.computerPlay;
+            console.log(machineMove);
+            
             countdownEl.remove();
             handsDiv.classList.add("active-hands");
             handsTop.classList.add("actived-hands-top");
     
             if (machineMove == "tijera") {
+                handScissorTop.classList.remove("hand-display-none");
                 handScissorTop.classList.add("actived-hand-top");
             }
-            if (machineMove == "piedra") {
-                handStoneTop.classList.add("actived-hand-top");
-            }
             if (machineMove == "papel") {
+                handPaperTop.classList.remove("hand-display-none");
                 handPaperTop.classList.add("actived-hand-top");
+            }
+            if (machineMove == "piedra") {
+                handStoneTop.classList.remove("hand-display-none");
+                handStoneTop.classList.add("actived-hand-top");
             }
     
             setTimeout(() => {
                 params.goTo("/score");
-            }, 1500);
-        }, 1500);
+            }, 2000);
+        }, 2000);
     }
     
     div.append(style);

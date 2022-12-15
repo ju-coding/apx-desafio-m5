@@ -1,9 +1,4 @@
-
 type Jugada = "piedra" | "papel" | "tijera";
-type Game = [
-    computerPlay:Jugada,
-    myPlay:Jugada
-]
 
 const state = {
     data: {
