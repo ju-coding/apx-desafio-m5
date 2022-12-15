@@ -13,8 +13,8 @@ const state = {
     },
 
     getStorage() {
-        const local = JSON.parse(localStorage.getItem("data") as string);
-        if (localStorage.getItem("data")) {
+        const local = JSON.parse(localStorage.getItem("history") as string);
+        if (localStorage.getItem("history")) {
             this.data.history = local;
         }
     },
@@ -90,14 +90,16 @@ const state = {
     
     savedData() {
         const currentState = this.getState().history;
-        localStorage.setItem("data", JSON.stringify(currentState));
+        localStorage.setItem("history", JSON.stringify(currentState));
     },
     
     cleanData() {
         localStorage.setItem(
-            "data",
-            JSON.stringify({ myScore: 0, computerScore: 0 })
+        "history",
+            JSON.stringify({myScore: 0, computerScore: 0 })
         );
+        // this.getState().history = {myScore: 0, computerScore: 0 }
+        this.getStorage();
     },
 };
 

@@ -73,6 +73,7 @@ export function initPageScore(params) {
 
     const toWelcomeButtonEl = div.querySelector(".toWelcome") as any;
     toWelcomeButtonEl.addEventListener("click", function() {
+        state.cleanData();
         params.goTo("/welcome")
     })
 

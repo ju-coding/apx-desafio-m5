@@ -19,8 +19,8 @@ export function initPagePlay(params) {
     div.innerHTML = `
     <div class="hands-top">
         <hand-scissor class="scissor-top hand-display-none"></hand-scissor>
-        <hand-stone class="stone-top hand-display-none"></hand-sto>
         <hand-paper class="paper-top hand-display-none"></hand-paper>
+        <hand-stone class="stone-top hand-display-none"></hand-stone>
     </div>
     <div class= "container">
         <div class="counter-el">${counter}</div>

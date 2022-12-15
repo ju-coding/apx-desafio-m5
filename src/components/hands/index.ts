@@ -11,13 +11,13 @@ export function initHandsComponent() {
         render() {
             const shadow = this.attachShadow({mode: "open"});
             const div = document.createElement("div");
-            div.className = "";
+            div.className = "hands";
             div.innerHTML = `
-            <div class="hands">
+            
                     <img class="scissor" src="${tijera}" alt="">
                     <img class="stone" src="${piedra}" alt="">
                     <img class="paper" src="${papel}" alt="">
-            </div>
+            
             `;
             var style = document.createElement('style');
             style.textContent = `
@@ -27,21 +27,21 @@ export function initHandsComponent() {
                     display: flex;
                     justify-content: space-between;
                 }
-                .tijera:hover{
+                .scissor:hover{
                     transform: translateY(-30px);
                     transition: all 0.5s;
                 }
-                .piedra:hover{
+                .stone:hover{
                     transform: translateY(-30px);
                     transition: all 0.5s;
                 }
-                .papel:hover{
+                .paper:hover{
                     transform: translateY(-30px);
                     transition: all 0.5s;
                 }
             `;
+            div.appendChild(style)
             shadow.appendChild(div)
-            shadow.appendChild(style)
         }
     }
     customElements.define("custom-hands", Hands)
